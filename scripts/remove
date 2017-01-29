@@ -7,18 +7,14 @@ set -eu
 # Retrieve app settings
 domain=$(ynh_app_setting_get "$app" domain)
 
-# Stop haste
-sudo systemctl stop "$app".service
+
 
 # Remove sources
-sudo rm -rf "/opt/"${app}
+sudo rm -rf "/var/www/$app"
 
 # Remove nginx configuration file
 [[ -n $domain ]] && sudo rm -f "/etc/nginx/conf.d/${domain}.d/${app}.conf"
 
-# Remove init script
-sudo systemctl disable "$app".service
-sudo rm -f /etc/systemd/system/"$app".service
 sudo systemctl daemon-reload
 
 # Remove monitor
