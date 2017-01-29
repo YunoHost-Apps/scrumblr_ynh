@@ -49,7 +49,7 @@ sudo npm install
 sudo service start redis-server
 sudo yunohost firewall allow Both 85
 sudo service scrumblr start
-sudo node server.js --port 85
+sudo systemctl start "$app".service
 
 
 
@@ -60,4 +60,5 @@ then
 fi
 
 sudo service nginx reload
+sudo yunohost service add "$app" --log /var/log/"$app"/"$app".log
 sudo yunohost app ssowatconf
