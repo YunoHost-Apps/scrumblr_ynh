@@ -46,9 +46,11 @@ sudo chown root: $nginxconf
 sudo chmod 600 $nginxconf
 cd $final_path
 sudo npm install
-sudo redis-server
-sudo node server.js --port 85
+sudo service start redis-server
 sudo yunohost firewall allow Both 85
+sudo service scrumblr start
+sudo node server.js --port 85
+
 
 
 ynh_app_setting_set "$app" is_public "$is_public"
