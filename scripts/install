@@ -31,8 +31,7 @@ source /usr/share/yunohost/helpers
 
 # Copy files to the right place
 final_path=/var/www/$app
-sudo mkdir -p $final_path
-extract_source $final_path
+extract_source
 
 # Files owned by root, www-data can just read
 sudo chown www-data:www-data $final_path -R
