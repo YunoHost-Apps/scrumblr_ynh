@@ -1,0 +1,56 @@
+#!/bin/bash
+
+source ./_common
+set -eu
+
+# Retrieve arguments
+domain=$1
+path=$2
+is_public=$3
+
+app=$YNH_APP_INSTANCE_NAME
+
+# Source app helpers
+source /usr/share/yunohost/helpers
+
+# Check domain/path availability
+sudo yunohost app checkurl "${domain}${path}" -a "$app" \
+    || ynh_die "Path not available: ${domain}${path}"
+
+# Install dependency to convert tracks to a readable format for the browser
+sudo apt-get update
+sudo apt-get -y -qq install redis-server php5-redis nodejs-legacy nodejs npm
+
+# Remove trailing "/" for next commands
+if [[ ! "$path" == "/" ]]; then
+    path=${path%/}
+fi
+
+# Source YunoHost helpers
+source /usr/share/yunohost/helpers
+
+# Copy files to the right place
+final_path=/var/www/$app
+sudo mkdir -p $final_path
+extract_source $final_path
+
+# Files owned by root, www-data can just read
+sudo chown www-data:www-data $final_path -R
+sudo chmod 755 $final_path -R
+
+# Modify Nginx configuration file and copy it to Nginx conf directory
+sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
+sed -i "s@YNH_WWW_ALIAS@$final_path/@g" ../conf/nginx.conf
+nginxconf=/etc/nginx/conf.d/$domain.d/$app.conf
+sudo cp ../conf/nginx.conf $nginxconf
+sudo chown root: $nginxconf
+sudo chmod 600 $nginxconf
+
+ynh_app_setting_set "$app" is_public "$is_public"
+if [ "$is_public" = "Yes" ];
+then
+  ynh_app_setting_set "$app" unprotected_uris "/"
+fi
+
+sudo service nginx reload
+sudo yunohost app ssowatconf
