@@ -20,7 +20,7 @@ sudo yunohost app checkurl "${domain}${path}" -a "$app" \
 # Install dependency to convert tracks to a readable format for the browser
 sudo apt-get update
 sudo apt-get -y -qq install redis-server php5-redis nodejs-legacy nodejs npm
-
+check_or_install_npm
 # Remove trailing "/" for next commands
 if [[ ! "$path" == "/" ]]; then
     path=${path%/}
@@ -48,6 +48,7 @@ cd $final_path
 sudo npm install
 sudo service start redis-server
 sudo yunohost firewall allow Both 85
+pre_inst_scrumblr
 sudo service scrumblr start
 sudo systemctl start "$app".service
 
