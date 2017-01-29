@@ -1,9 +1,5 @@
 extract_source() {
-  local DESTDIR=$1
     
-  sudo git clone https://github.com/aliasaria/scrumblr.git $DESTDIR  \
+  sudo git clone https://github.com/aliasaria/scrumblr.git /var/www/  \
     || ynh_die "Unable to download source"
-  sudo  mv $DESTDIR/scrumblr .. \
-    || ynh_die "Unable to extract source tarball"
-  sudo rm $DESTDIR/scrumblr
 }
