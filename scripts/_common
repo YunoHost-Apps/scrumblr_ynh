@@ -1,5 +1,5 @@
 extract_source() {
-    
+  sudo rm -rf /var/www/scrumblr  
   sudo git clone https://github.com/aliasaria/scrumblr.git /var/www/$app  \
     || ynh_die "Unable to download source"
 }
