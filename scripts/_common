@@ -17,9 +17,7 @@ pre_inst_scrumblr() {
       --ingroup "$app" --system --quiet --shell /bin/bash
 
   # Configure init script
-  pushd $final_path
   sudo cp ../conf/"$app".service /etc/systemd/system/
-  popd
   sudo systemctl daemon-reload
   sudo systemctl enable "$app".service
   }
