@@ -5,10 +5,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=scrumblr
-Group=scrumblr
+User=root
 WorkingDirectory=/var/www/scrumblr
-ExecStart=node server.js --port 85
+ExecStart=/usr/bin/node server.js --port 85
 Restart=always
 Environment=USER=scrumblr HOME=/var/www/scrumblr
 
