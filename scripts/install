@@ -46,7 +46,7 @@ sudo chown root: $nginxconf
 sudo chmod 600 $nginxconf
 cd $final_path
 sudo npm install
-sudo service start redis-server
+sudo service redis-server start
 sudo yunohost firewall allow Both 85
 pre_inst_scrumblr
 sudo service scrumblr start
