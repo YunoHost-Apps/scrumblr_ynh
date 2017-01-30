@@ -44,8 +44,9 @@ nginxconf=/etc/nginx/conf.d/$domain.d/$app.conf
 sudo cp ../conf/nginx.conf $nginxconf
 sudo chown root: $nginxconf
 sudo chmod 600 $nginxconf
-cd $final_path
+pushd $final_path
 sudo npm install
+popd
 sudo service redis-server start
 sudo yunohost firewall allow Both 85
 pre_inst_scrumblr
