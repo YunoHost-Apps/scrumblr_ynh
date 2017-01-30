@@ -8,7 +8,7 @@ Type=simple
 User=scrumblr
 Group=scrumblr
 WorkingDirectory=/var/www/scrumblr
-ExecStart=sudo node server.js --port 85
+ExecStart=node server.js --port 85
 Restart=always
 Environment=USER=scrumblr HOME=/var/www/scrumblr
 
