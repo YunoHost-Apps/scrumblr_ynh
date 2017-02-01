@@ -2,7 +2,7 @@
 
 # Exit on command errors and treat unset variables as an error
 set -eu
-
+app=$YNH_APP_INSTANCE_NAME
 
 # Retrieve app settings
 domain=$(ynh_app_setting_get $app domain)
