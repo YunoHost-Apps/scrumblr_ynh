@@ -7,9 +7,6 @@ source /usr/share/yunohost/helpers
 set -eu
 app=$YNH_APP_INSTANCE_NAME
 
-# Source app helpers
-source /usr/share/yunohost/helpers
-
 # Retrieve app settings
 domain=$(ynh_app_setting_get $app domain)
 
