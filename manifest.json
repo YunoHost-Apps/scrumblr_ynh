@@ -3,14 +3,15 @@
     "id": "scrumblr",
     "packaging_format": 1,
     "description": {
-        "fr": "Software for notes"
+        "en": "Software for notes",
+	"fr": "Application pour créer des post-it."
     },
-    "url": "https://github.com/seejohnrun/haste-server",
-    "license": "free",
+    "url": "http://www.scrumblr.ca/",
+    "license": "GPLv3",
     "maintainer": {
-        "name": "mbugeia",
-        "email": "maxime.bugeia@gmail.com",
-        "url": "https://github.com/YunoHost-Apps/haste_ynh"
+        "name": "frju365",
+        "email": "win10@tutanota.com",
+        "url": "https://github.com/YunoHost-Apps/scrumblr_ynh"
     },
     "requirements": {
         "yunohost": ">> 2.4.0"
