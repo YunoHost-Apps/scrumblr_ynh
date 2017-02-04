@@ -4,6 +4,7 @@
 source /usr/share/yunohost/helpers
 
 # Exit on command errors and treat unset variables as an error
+set -u
 set -eu
 app=$YNH_APP_INSTANCE_NAME
 
