@@ -3,7 +3,7 @@
 	; Manifest
 		domain="domain.tld"	(DOMAIN)
 		path="/path"	(PATH)
-		is_public="Yes"	(PUBLIC|public=Yes|private=No)
+		is_public="Yes"	(PUBLIC|public=0|private=1)
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
