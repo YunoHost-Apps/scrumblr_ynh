@@ -56,7 +56,7 @@ sudo systemctl start "$app".service
 
 
 ynh_app_setting_set "$app" is_public "$is_public"
-if [ "$is_public" = "Yes" ];
+if [ "$is_public" = 0 ];
 then
   ynh_app_setting_set "$app" unprotected_uris "/"
 fi
