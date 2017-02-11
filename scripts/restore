@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Exit on command errors and treat unset variables as an error
+set -eu
+
+# Load common variables and functions
+source ./_common.sh
+
+# Retrieve old app settings
+domain=$(ynh_app_setting_get "$app" domain)
+path=$(ynh_app_setting_get "$app" path)
+is_public=$(ynh_app_setting_get "$app" is_public)
+
+# Check domain/path availability
+sudo yunohost app checkurl "${domain}${path}" -a "$app" \
+    || ynh_die "Path not available: ${domain}${path}"
+
+# Check destination directory
+[[ -d $DESTDIR ]] && ynh_die \
+"The destination directory '$DESTDIR' already exists.\
+ You should safely delete it before restoring this app."
+
+ # Check configuration files
+ nginx_conf="/etc/nginx/conf.d/${domain}.d/${app}.conf"
+ [[ -f $nginx_conf ]] && ynh_die \
+ "The NGINX configuration already exists at '${nginx_conf}'.
+ You should safely delete it before restoring this app."
+
+# backup the app
+sudo cp -a ./www "$DESTDIR"
+sudo cp -a ./data/. "$DATA_PATH"
+# Restore directories and permissions
+sudo chown -R "$app":"$app" "$DESTDIR" "$DATA_PATH"
+
+# Restore NGINX configuration
+sudo cp -a ./nginx.conf "/etc/nginx/conf.d/${domain}.d/${app}.conf"
+
+# Restart webserver and app
+sudo systemctl reload nginx.service
+sudo systemctl start "$app".service
+
+# Add Haste to YunoHost's monitored services
+sudo yunohost service add "$app" --log /var/log/"$app"/"$app".log
