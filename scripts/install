@@ -25,10 +25,6 @@ ynh_normalize_url_path $path
 sudo apt-get update
 sudo apt-get -y -qq install redis-server php5-redis nodejs-legacy nodejs npm
 check_or_install_npm
-# Remove trailing "/" for next commands
-if [[ ! "$path" == "/" ]]; then
-    path=${path%/}
-fi
 
 # Source YunoHost helpers
 source /usr/share/yunohost/helpers
