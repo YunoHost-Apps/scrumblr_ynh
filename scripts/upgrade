@@ -6,6 +6,9 @@ set -eu
 # Load common variables and functions
 source ./_common
 
+# Récupère les infos de l'application.
+app=$YNH_APP_INSTANCE_NAME
+
 # Retrieve arguments
 domain=$(ynh_app_setting_get "$app" domain)
 path=$(ynh_app_setting_get "$app" path)
