@@ -4,7 +4,7 @@
 set -eu
 
 # Load common variables and functions
-source ./_common.sh
+source ./_common
 
 # Retrieve old app settings
 domain=$(ynh_app_setting_get "$app" domain)
