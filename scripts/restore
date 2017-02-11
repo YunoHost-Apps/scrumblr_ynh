@@ -39,5 +39,5 @@ sudo cp -a ./nginx.conf "/etc/nginx/conf.d/${domain}.d/${app}.conf"
 sudo systemctl reload nginx.service
 sudo systemctl start "$app".service
 
-# Add Haste to YunoHost's monitored services
+# Add Scrumblr to YunoHost's monitored services
 sudo yunohost service add "$app" --log /var/log/"$app"/"$app".log
