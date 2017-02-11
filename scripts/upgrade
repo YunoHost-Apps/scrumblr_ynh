@@ -6,6 +6,9 @@ set -eu
 # Load common variables and functions
 source ./_common
 
+# Source YunoHost helpers
+source /usr/share/yunohost/helpers
+
 # Récupère les infos de l'application.
 app=$YNH_APP_INSTANCE_NAME
 
