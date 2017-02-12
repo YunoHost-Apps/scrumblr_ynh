@@ -1,8 +1,15 @@
 #!/bin/bash
 
 source ./_common
-source ./.fonctions
+source .fonctions
 set -eu
+
+CLEAN_SETUP () {
+# Nettoyage des résidus d'installation non pris en charge par le script remove.
+# Pas de nettoyage supplémentaire nécessaire ici...
+	echo ""
+}
+TRAP_ON	# Active trap pour arrêter le script si une erreur est détectée.
 
 # Retrieve arguments
 domain=$1
@@ -14,12 +21,16 @@ app=$YNH_APP_INSTANCE_NAME
 # Source app helpers
 source /usr/share/yunohost/helpers
 
+script_dir=$PWD
 
-ynh_normalize_url_path $path
+# Vérifie que les variables ne sont pas vides.
+CHECK_VAR "$app" "app name not set"
+CHECK_VAR "$script_dir" "script_dir not set"
 
-# Check domain/path availability
-sudo yunohost app checkurl "${domain}${path}" -a "$app" \
-    || ynh_die "Path not available: ${domain}${path}"
+CHECK_PATH	# Vérifie et corrige la syntaxe du path.
+CHECK_DOMAINPATH	# Vérifie la disponibilité du path et du domaine.
+
+CHECK_FINALPATH	# Vérifie que le dossier de destination n'est pas déjà utilisé.
 
 # Install dependency to convert tracks to a readable format for the browser
 sudo apt-get update
