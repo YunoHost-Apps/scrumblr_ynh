@@ -1,43 +1,38 @@
 #!/bin/bash
 
-# Exit on command errors and treat unset variables as an error
 set -eu
+# Récupère les infos de l'application.
+app=$YNH_APP_INSTANCE_NAME
 
-# Load common variables and functions
-source ./_common
+# Source app helpers
+source /usr/share/yunohost/helpers
 
-# Retrieve old app settings
-domain=$(ynh_app_setting_get "$app" domain)
-path=$(ynh_app_setting_get "$app" path)
-is_public=$(ynh_app_setting_get "$app" is_public)
+final_path=$(ynh_app_setting_get $app final_path)
+domain=$(ynh_app_setting_get $app domain)
+codename=$(ynh_app_setting_get $app codename)
 
-# Check domain/path availability
-sudo yunohost app checkurl "${domain}${path}" -a "$app" \
-    || ynh_die "Path not available: ${domain}${path}"
+# The parameter $1 is the uncompressed restore directory location
+backup_dir=$1/apps/$app
 
-# Check destination directory
-[[ -d $DESTDIR ]] && ynh_die \
-"The destination directory '$DESTDIR' already exists.\
- You should safely delete it before restoring this app."
+# Restore sources & data
+sudo cp -a $backup_dir/sources/. $final_path
 
- # Check configuration files
- nginx_conf="/etc/nginx/conf.d/${domain}.d/${app}.conf"
- [[ -f $nginx_conf ]] && ynh_die \
- "The NGINX configuration already exists at '${nginx_conf}'.
- You should safely delete it before restoring this app."
+# Restore Nginx and YunoHost parameters
+sudo cp -a $backup_dir/yunohost/. /etc/yunohost/apps/$app
+sudo cp -a $backup_dir/nginx.conf /etc/nginx/conf.d/$domain.d/$app.conf
 
-# backup the app
-sudo cp -a ./www "$DESTDIR"
-sudo cp -a ./data/. "$DATA_PATH"
-# Restore directories and permissions
-sudo chown -R "$app":"$app" "$DESTDIR" "$DATA_PATH"
 
-# Restore NGINX configuration
-sudo cp -a ./nginx.conf "/etc/nginx/conf.d/${domain}.d/${app}.conf"
+# Installation de perlmagick, interface perl pour imagemagick et de carton, gestionnaire de dépendances perl
+sudo apt-get update
+sudo apt-get install npm nodejs nodejs-legacy -qy
 
-# Restart webserver and app
-sudo systemctl reload nginx.service
-sudo systemctl start "$app".service
+# Restauration des fichiers du script systemd
+sudo cp -a $backup_dir/scrumblr.service /etc/systemd/system/scrumblr.service
+## Démarrage auto du service
+sudo systemctl enable scrumblr.service
 
-# Add Scrumblr to YunoHost's monitored services
-sudo yunohost service add "$app" --log /var/log/"$app"/"$app".log
+# Restart webserver
+sudo service nginx reload
+
+# Start scrumblr
+sudo service scrumblr start
