@@ -25,7 +25,7 @@ sudo cp -a /etc/yunohost/apps/$app/. $backup_dir/yunohost
 sudo cp -a /etc/nginx/conf.d/$domain.d/$app.conf $backup_dir/nginx.conf
 
 
-sudo cp -a /etc/systemd/system/lutim.service $backup_dir/
+sudo cp -a /etc/systemd/system/scrumblr.service $backup_dir/
 
 # Copie du fichier du cron
 sudo cp -a /etc/cron.d/$app $backup_dir/cron_$app
