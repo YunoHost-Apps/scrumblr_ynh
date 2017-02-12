@@ -12,5 +12,3 @@ ynh_normalize_url_path () {
     echo $path
 }
 
-    Contact GitHub API Training Shop Blog About 
-
