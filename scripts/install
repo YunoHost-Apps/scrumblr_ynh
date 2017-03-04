@@ -17,8 +17,6 @@ source /usr/share/yunohost/helpers
 script_dir=$PWD
 
 # Vérifie que les variables ne sont pas vides.
-
-CHECK_PATH	# Vérifie et corrige la syntaxe du path.
 CHECK_DOMAINPATH	# Vérifie la disponibilité du path et du domaine.
 
 CHECK_FINALPATH	# Vérifie que le dossier de destination n'est pas déjà utilisé.
