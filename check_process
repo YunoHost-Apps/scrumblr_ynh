@@ -26,7 +26,9 @@
 	Level 2=auto
 	Level 3=auto
 	Level 4=na
-	Level 5=auto
+# LDAP not integrated
+	Level 5=1
+# Test doesn't know what is really an exit
 	Level 6=auto
 	Level 7=auto
 	Level 8=0
