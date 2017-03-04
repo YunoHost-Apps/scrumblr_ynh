@@ -3,8 +3,7 @@
 # Exit on command errors and treat unset variables as an error
 set -eu
 
-# Load common variables and functions
-source ./_common
+source .fonctions
 
 # Source YunoHost helpers
 source /usr/share/yunohost/helpers
