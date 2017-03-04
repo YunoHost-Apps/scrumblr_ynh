@@ -2,7 +2,11 @@
 
 source .fonctions
 set -eu
+#=================================================
+# MANAGE FAILURE OF THE SCRIPT
+#=================================================
 
+ynh_check_error	# Active trap pour arrêter le script si une erreur est détectée.
 
 # Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN
