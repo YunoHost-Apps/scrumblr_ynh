@@ -1,7 +1,9 @@
 #!/bin/bash
 
-source .fonctions
 set -eu
+source .fonctions
+source /usr/share/yunohost/helpers
+
 #=================================================
 # MANAGE FAILURE OF THE SCRIPT
 #=================================================
@@ -12,13 +14,7 @@ ynh_check_error	# Active trap pour arrêter le script si une erreur est détect�
 domain=$YNH_APP_ARG_DOMAIN
 path=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
-
-
 app=$YNH_APP_INSTANCE_NAME
-
-# Source app helpers
-source /usr/share/yunohost/helpers
-
 script_dir=$PWD
 
 # Vérifie que les variables ne sont pas vides.
@@ -30,9 +26,6 @@ CHECK_FINALPATH	# Vérifie que le dossier de destination n'est pas déjà utilis
 sudo apt-get update
 sudo apt-get -y -qq install redis-server php5-redis nodejs-legacy nodejs npm
 check_or_install_npm
-
-# Source YunoHost helpers
-source /usr/share/yunohost/helpers
 
 # Copy files to the right place
 final_path=/var/www/$app
