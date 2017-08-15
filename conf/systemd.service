@@ -1,0 +1,16 @@
+[Unit]
+Description=Scrumblr is a software to take note.
+After=network.target
+
+[Service]
+Type=simple
+User=__APP__
+Group=__APP__
+WorkingDirectory=__FINALPATH__
+ExecStartPre=__NODEJS__
+Environment="PATH=__ENV_PATH__"
+ExecStart=__NODE__ server.js --port __PORT__
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
