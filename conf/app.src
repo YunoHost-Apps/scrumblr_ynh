@@ -1,3 +1,6 @@
-SOURCE_URL=https://framagit.org/framasoft/framemo/repository/archive.tar.gz?ref=2d1bffa0a372fb01e5cdb070f9d82abba8f81116
-SOURCE_SUM=0090895c79773825d346a2f4602999f5
-SOURCE_SUM_PRG=md5sum
+SOURCE_URL=https://framagit.org/framasoft/framemo/-/archive/2d1bffa0a372fb01e5cdb070f9d82abba8f81116/framemo-2d1bffa0a372fb01e5cdb070f9d82abba8f81116.tar.gz
+SOURCE_SUM=263a7c44cc577eb1ac61331414b2f1381328849c6650ac058cca06900e10c3b0
+SOURCE_SUM_PRG=sha256sum
+SOURCE_FORMAT=tar.gz
+SOURCE_IN_SUBDIR=true
+SOURCE_FILENAME=
