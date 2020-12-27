@@ -47,6 +47,7 @@ fi
 #=================================================
 # INSTALL NODEJS
 #=================================================
+
 ynh_install_nodejs 6.2.0
 
 #=================================================
@@ -98,23 +99,23 @@ ynh_systemd_config
 
 script_dir="$PWD"
 pushd "$final_path"
-sudo chown -R $app: $final_path
-sudo_path npm install --production >> $install_log 2>&1
+chown -R $app: $final_path
+npm install --production >> $install_log 2>&1
 popd
-sudo service redis-server start
+service redis-server start
 
 #=================================================
 # ENABLE SERVICE IN ADMIN PANEL
 #=================================================
 
 # Ajoute le service au monitoring de Yunohost.
-sudo yunohost service add $app --log "/var/log/$app/$app.log"
+yunohost service add $app --log "/var/log/$app/$app.log"
 
 #=================================================
 # START OSJS IN BACKGROUND
 #=================================================
 
-sudo systemctl start $app
+systemctl start $app
 
 #=================================================
 # SETUP SSOWAT

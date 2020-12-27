@@ -7,9 +7,9 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__
-ExecStartPre=__NODEJS__
 Environment="PATH=__ENV_PATH__"
-ExecStart=__NODE__/node server.js --port __PORT__
+Environment="NODE_ENV=production"
+ExecStart=__YNH_NPM__  server.js --port __PORT__
 Restart=always
 
 [Install]
