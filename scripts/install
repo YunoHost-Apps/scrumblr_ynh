@@ -14,7 +14,6 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
 	true
 }
 # Exit if an error occurs during the execution of the script
@@ -148,17 +147,18 @@ systemctl start "$app".service
 #=================================================
 # Set Public or private
 #=================================================
+ynh_script_progression --message="Configuring SSOwat..." --weight=1
 
-ynh_app_setting_set "$app" is_public "$is_public"
-if [ "$is_public" = 0 ];
+# Make app public if necessary or protect it
+if [ $is_public -eq 1 ]
 then
-  ynh_app_setting_set "$app" unprotected_uris "/"
+	ynh_permission_update --permission "main" --add "visitors"
 fi
 
 #=================================================
 # Reload Service
 #=================================================
 
-sudo service nginx reload
-sudo yunohost service add "$app" --log /var/log/"$app"/"$app".log
-sudo yunohost app ssowatconf
+ynh_systemd_action --service_name=nginx --action=reload
+yunohost service add "$app" --log /var/log/"$app"/"$app".log
+yunohost app ssowatconf
