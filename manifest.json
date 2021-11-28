@@ -9,12 +9,12 @@
     "version": "1.0~ynh1",
     "url": "http://www.scrumblr.ca/",
     "upstream": {
-        "license": "GPLv3",
+        "license": "AGPL-3.0-only",
         "website": "http://www.scrumblr.ca/",
         "demo": "http://scrumblr.ca/",
         "code": "https://github.com/aliasaria/scrumblr"
     },
-    "license": "GPLv3",
+    "license": "AGPL-3.0-only",
     "maintainer": {
         "name": "frju365",
         "email": "win10@tutanota.com",
