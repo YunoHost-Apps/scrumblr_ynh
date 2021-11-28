@@ -1,5 +1,5 @@
 [Unit]
-Description=Scrumblr is a software to take note.
+Description=Scrumblr: software to take note.
 After=network.target
 
 [Service]
