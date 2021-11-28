@@ -28,7 +28,6 @@ path_url="/"
 is_public=$YNH_APP_ARG_IS_PUBLIC
 
 app=$YNH_APP_INSTANCE_NAME
-script_dir=$PWD
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THIS ARGS
@@ -44,6 +43,7 @@ ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
+ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
@@ -100,16 +100,9 @@ ynh_add_nginx_config
 #=================================================
 # HANDLE LOG FILES AND LOGROTATE
 #=================================================
+ynh_script_progression --message="Configuring log rotation..." --weight=1
 
-# Créer le dossier de log
-mkdir -p /var/log/$app
-touch /var/log/$app/scrumblr.log
-install_log=/var/log/$app/installation.log
-touch $install_log
-chown $app -R /var/log/$app
-chown admin -R $install_log
-
-# Configuration de logrotate
+# Use logrotate to manage application logfile(s)
 ynh_use_logrotate
 
 #=================================================
@@ -122,12 +115,12 @@ ynh_replace_string --match_string="__ENV_PATH__" --replace_string="$PATH" --targ
 ynh_add_systemd_config
 
 #=================================================
-# Install Scrumblr
+# INSTALL SCRUMBLR
 #=================================================
 
 pushd $final_path
 	ynh_use_nodejs
-	$ynh_npm install >> $install_log 2>&1
+	$ynh_npm install >> 2>&1
 popd
 
 #=================================================
@@ -135,7 +128,7 @@ popd
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-yunohost service add $app --description="A short description of the app" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Software for notes" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
