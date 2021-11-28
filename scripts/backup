@@ -1,34 +1,71 @@
 #!/bin/bash
 
-# Exit on command errors and treat unset variables as an error
-set -eu
-# Récupère les infos de l'application.
-app=$YNH_APP_INSTANCE_NAME
+#=================================================
+# GENERIC START
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
 
-# The parameter $1 is the backup directory location dedicated to the app
-backup_dir=$1
-
-# Source app helpers
+# Keep this path for calling _common.sh inside the execution's context of backup and restore scripts
+source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
-final_path=$(ynh_app_setting_get $app final_path)
-domain=$(ynh_app_setting_get $app domain)
+#=================================================
+# MANAGE SCRIPT FAILURE
+#=================================================
+
+ynh_clean_setup () {
+	### Remove this function if there's nothing to clean before calling the remove script.
+	true
+}
+# Exit if an error occurs during the execution of the script
+ynh_abort_if_errors
+
+#=================================================
+# LOAD SETTINGS
+#=================================================
+ynh_print_info --message="Loading installation settings..."
+
+app=$YNH_APP_INSTANCE_NAME
+
+final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 codename=$(ynh_app_setting_get $app codename)
 
-# Copy the app files
-sudo mkdir -p ${backup_dir}/var/www
-sudo cp -a $final_path "${backup_dir}/var/www/$app"
+#=================================================
+# DECLARE DATA AND CONF FILES TO BACKUP
+#=================================================
+ynh_print_info --message="Declaring files to be backed up..."
 
-# Backup sources & data
-sudo mkdir -p "${backup_dir}/sources"
-sudo cp -a $final_path/* $backup_dir/sources
+#=================================================
+# BACKUP THE APP MAIN DIR
+#=================================================
 
-# Copy Nginx and YunoHost parameters to make the script "standalone"
-# Copy the conf files
-sudo mkdir -p "${backup_dir}/conf"
-sudo cp -a /etc/nginx/conf.d/$domain.d/$app.conf "${backup_dir}/conf/nginx.conf"
-sudo mkdir -p "${backup_dir}/yunohost"
-sudo cp -a /etc/yunohost/apps/$app/. $backup_dir/yunohost
+ynh_backup --src_path="$final_path"
 
+#=================================================
+# BACKUP THE NGINX CONFIGURATION
+#=================================================
 
-sudo cp -a /etc/systemd/system/scrumblr.service $backup_dir/
+ynh_backup --src_path="/etc/nginx/conf.d/$domain.d/$app.conf"
+
+#=================================================
+# SPECIFIC BACKUP
+#=================================================
+# BACKUP LOGROTATE
+#=================================================
+
+ynh_backup --src_path="/etc/logrotate.d/$app"
+
+#=================================================
+# BACKUP SYSTEMD
+#=================================================
+
+ynh_backup --src_path="/etc/systemd/system/$app.service"
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_print_info --message="Backup script completed for $app. (YunoHost will then actually copy those files to the archive)."

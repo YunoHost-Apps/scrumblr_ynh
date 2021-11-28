@@ -1,5 +1,5 @@
 [Unit]
-Description=Scrumblr is a software to take note.
+Description=Scrumblr: software to take note.
 After=network.target
 
 [Service]
@@ -7,9 +7,9 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__
-ExecStartPre=__NODEJS__
 Environment="PATH=__ENV_PATH__"
-ExecStart=__NODE__/node server.js --port __PORT__
+Environment="NODE_ENV=production"
+ExecStart=__YNH_NPM__ start --server:port=__PORT__
 Restart=always
 
 [Install]

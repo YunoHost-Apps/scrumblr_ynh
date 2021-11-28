@@ -1,9 +1,8 @@
-;; Nom du test
-	auto_remove=1
+;; Test complet
 	; Manifest
-		domain="domain.tld"	(DOMAIN)
-		path="/path"	(PATH)
-		is_public="Yes"	(PUBLIC|public=0|private=1)
+		domain="domain.tld"
+		path="/path"
+		is_public=1
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
@@ -12,25 +11,15 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
+		#upgrade=1	from_commit=CommitHash
 		backup_restore=1
 		multi_instance=0
-		wrong_user=0
-		wrong_path=1
-		incorrect_path=1
-		corrupt_source=0
-		fail_download_source=0
-		port_already_use=0
-		final_path_already_use=0
-;;; Levels
-	Level 1=auto
-	Level 2=auto
-	Level 3=auto
-	Level 4=na
-# LDAP not integrated
-	Level 5=1
-# Test doesn't know what is really an exit
-	Level 6=auto
-	Level 7=auto
-	Level 8=0
-	Level 9=0
-	Level 10=0
+		change_url=1
+;;; Options
+Email=
+Notification=none
+;;; Upgrade options
+	; commit=CommitHash
+		name=Name and date of the commit.
+		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&language=fr&is_public=1&password=pass&port=666&
+
