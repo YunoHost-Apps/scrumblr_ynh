@@ -83,8 +83,14 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
+	ynh_secure_remove --file="$final_path"
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$final_path"
+
+	pushd $final_path
+		ynh_use_nodejs
+		ynh_exec_warn_less $ynh_npm install
+	popd
 fi
 
 chmod 750 "$final_path"
@@ -111,7 +117,7 @@ ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
 #=================================================
 ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
 
-# Create a dedicated systemd config
+ynh_replace_string --match_string="__ENV_PATH__" --replace_string="$PATH" --target_file="../conf/systemd.service"
 ynh_add_systemd_config
 
 #=================================================
@@ -136,7 +142,7 @@ yunohost service add $app --description="Software for notes" --log="/var/log/$ap
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="start" --log_path=systemd
+ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at port"
 
 #=================================================
 # RELOAD NGINX

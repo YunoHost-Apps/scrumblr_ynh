@@ -3,7 +3,7 @@
     "id": "scrumblr",
     "packaging_format": 1,
     "description": {
-        "en": "Software for notes",
+        "en": "Software for post-it notes",
 	   "fr": "Application pour créer des post-it"
     },
     "version": "0.2.0~ynh1",
