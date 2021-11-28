@@ -9,8 +9,10 @@ Group=__APP__
 WorkingDirectory=__FINALPATH__
 Environment="PATH=__ENV_PATH__"
 Environment="NODE_ENV=production"
-ExecStart=__YNH_NPM__  server.js --port __PORT__
+ExecStart=__YNH_NPM__ server.js --port __PORT__
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
+
+#node server.js --server:port=80
