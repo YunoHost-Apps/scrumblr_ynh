@@ -24,7 +24,7 @@ scrumblr is a web-based simulation of a physical agile kanban board that support
 ## Documentations et ressources
 
 * Site officiel de l'app : http://www.scrumblr.ca/
-* Dépôt de code officiel de l'app : https://framagit.org/framasoft/framemo
+* Dépôt de code officiel de l'app : https://github.com/aliasaria/scrumblr
 * Documentation YunoHost pour cette app : https://yunohost.org/app_scrumblr
 * Signaler un bug : https://github.com/YunoHost-Apps/scrumblr_ynh/issues
 
