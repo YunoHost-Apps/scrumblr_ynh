@@ -4,9 +4,18 @@
     "packaging_format": 1,
     "description": {
         "en": "Software for notes",
-	"fr": "Application pour créer des post-it."
+	   "fr": "Application pour créer des post-it"
     },
+    "version": "1.0~ynh1",
     "url": "http://www.scrumblr.ca/",
+    
+    "upstream": {
+        "license": "GPLv3",
+        "website": "http://www.scrumblr.ca/",
+        "demo": "http://scrumblr.ca/",
+        "code": "https://github.com/aliasaria/scrumblr"
+        "code": "https://framagit.org/framasoft/framemo"
+    },
     "license": "GPLv3",
     "maintainer": {
         "name": "frju365",
@@ -14,7 +23,7 @@
         "url": "https://github.com/YunoHost-Apps/scrumblr_ynh"
     },
     "requirements": {
-        "yunohost": ">> 3.8.1"
+        "yunohost": ">> 4.3.0"
     },
     "multi_instance": false,
     "services": [
@@ -24,30 +33,17 @@
         "install" : [
             {
                 "name": "domain",
-		            "type": "domain",
-                "ask": {
-                    "en": "Choose a domain name for Haste",
-                    "fr": "Choisissez un nom de domaine pour Haste"
-                },
-                "example": "example.com"
+                "type": "domain"
             },
             {
                 "name": "path",
-		            "type": "path",
-                "ask": {
-                    "en": "Choose a path for scrumblr, only / is allowed.",
-                    "fr": "Choisissez un chemin pour scrumblr, seul / est autorisé."
-                },
+                "type": "path",
                 "example": "/",
                 "default": "/"
             },
             {
                 "name": "is_public",
                 "type": "boolean",
-                "ask": {
-                    "en": "Is it a public site? ",
-                    "fr": "Est-ce un site publique ? "
-                },
                 "default": true
             }
         ]
