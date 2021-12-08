@@ -24,7 +24,7 @@ ynh_abort_if_errors
 #=================================================
 
 domain=$YNH_APP_ARG_DOMAIN
-path_url="/"
+path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
 
 app=$YNH_APP_INSTANCE_NAME
@@ -110,7 +110,6 @@ ynh_use_logrotate
 #=================================================
 ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
-ynh_replace_string --match_string="__ENV_PATH__" --replace_string="$PATH" --target_file="../conf/systemd.service"
 ynh_add_systemd_config
 
 #=================================================
@@ -135,7 +134,7 @@ yunohost service add $app --description="Software for notes" --log="/var/log/$ap
 ynh_script_progression --message="Starting a systemd service..." --weight=2
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at port"
+ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at "
 
 #=================================================
 # Set Public or private
