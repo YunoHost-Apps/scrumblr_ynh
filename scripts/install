@@ -59,12 +59,29 @@ ynh_script_progression --message="Finding an available port..." --weight=1
 port=$(ynh_find_port --port=8080)
 ynh_app_setting_set --app=$app --key=port --value=$port
 
+#==================================================
+# CONFIGURE REDIS SERVICE
+#==================================================
+
+ynh_install_app_dependencies redis-server redis-tools
+
+# Find an available port for redis
+redis_port=$(ynh_find_port --port=8081)
+ynh_app_setting_set --app=$app --key=redis_port --value=$redis_port
+
+ynh_add_config --template="redis.conf" --destination="$final_path/redis.conf"
+
+redis_service="redis-$app$"
+ynh_add_systemd_config --service $redis_service --template scrumblr_redis
+
 #=================================================
 # INSTALL NODEJS
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --weight=5
 
 ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
+
+
 
 #=================================================
 # CREATE DEDICATED USER

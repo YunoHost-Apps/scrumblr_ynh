@@ -57,6 +57,10 @@ ynh_script_progression --message="Removing dependencies..." --weight=2
 # Remove metapackage and its dependencies
 ynh_remove_nodejs
 
+ynh_script_progression --message="Removing redis service" --weight=2
+
+ynh_remove_systemd_config --service="redis-$app"
+
 #=================================================
 # REMOVE APP MAIN DIR
 #=================================================
