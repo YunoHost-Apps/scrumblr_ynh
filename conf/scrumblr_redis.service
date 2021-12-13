@@ -1,15 +1,16 @@
 [Unit]
-Description=Scrumblr: software to take note.
+Description=Redis service for scrumblr app.
 After=network.target
 
 [Service]
 Type=simple
 User=__APP__
 Group=__APP__
-WorkingDirectory=__FINALPATH__
-Environment="PATH=_PATH__"
-Environment="NODE_ENV=production"
-ExecStart=__YNH_NODE__ server.js --port=__PORT__ --baseurl=__PATH__ --redis localhot:__REDIS_PORT__
+WorkingDirectory=__FINALPATH__/
+ExecStart=redis-server redis.conf 
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=redis-__APP__
 Restart=always
 
 # Sandboxing options to harden security
@@ -44,4 +45,3 @@ CapabilityBoundingSet=~CAP_SYS_ADMIN CAP_SYS_PTRACE CAP_SYSLOG
 
 [Install]
 WantedBy=multi-user.target
-

@@ -1,5 +1,5 @@
-SOURCE_URL=https://framagit.org/colibris/framemo/-/archive/5183db5829767363ce31acafd376a1cdfffa3eca/framemo-5183db5829767363ce31acafd376a1cdfffa3eca.tar.gz
-SOURCE_SUM=3f14e2316a5e4a8e1330c561f2506254567d7b71f0b36da9df0d9168f18e6b48
+SOURCE_URL=https://framagit.org/colibris/framemo/-/archive/d14b3167dfe413ca7db78283b70334100e82076f/framemo-d14b3167dfe413ca7db78283b70334100e82076f.tar.gz
+SOURCE_SUM=f42433ee1e513a2881d00573d0ee5d9595bcee868a8ecbaf9b219d3811aa6943
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true

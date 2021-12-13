@@ -6,7 +6,7 @@
         "en": "Software for post-it notes",
 	   "fr": "Application pour créer des post-it"
     },
-    "version": "0.2.0~ynh1",
+    "version": "0.2.1~ynh1",
     "url": "http://www.scrumblr.ca/",
     "upstream": {
         "license": "AGPL-3.0-only",
@@ -15,10 +15,13 @@
         "code": "https://github.com/aliasaria/scrumblr"
     },
     "license": "AGPL-3.0-only",
-    "maintainer": {
+    "maintainer": [{
         "name": "frju365",
         "email": "win10@tutanota.com"
     },
+    {   "name": "oiseauroch",
+        "email": "tobias.ollive@oiseauroch.fr"
+    }],
     "requirements": {
         "yunohost": ">> 4.3.0"
     },
