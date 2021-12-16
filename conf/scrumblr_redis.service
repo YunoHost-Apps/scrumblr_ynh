@@ -7,41 +7,32 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__/
-ExecStart=redis-server redis.conf 
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=redis-__APP__
+ExecStart=/usr/bin/redis-server __FINALPATH__/redis.conf 
+ExecStop=/bin/kill -s TERM $MAINPID
+PIDFile=__FINALPATH__/redis-server-__PORT__.pid
+TimeoutStopSec=0
 Restart=always
 
-# Sandboxing options to harden security
-# Depending on specificities of your service/app, you may need to tweak these 
-# .. but this should be a good baseline
-# Details for these options: https://www.freedesktop.org/software/systemd/man/systemd.exec.html
-NoNewPrivileges=yes
+UMask=007
 PrivateTmp=yes
+LimitNOFILE=65535
 PrivateDevices=yes
-RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
-RestrictNamespaces=yes
-RestrictRealtime=yes
-DevicePolicy=closed
-ProtectSystem=full
-ProtectControlGroups=yes
-ProtectKernelModules=yes
-ProtectKernelTunables=yes
-LockPersonality=yes
-SystemCallFilter=~@clock @debug @module @mount @obsolete @reboot @setuid @swap
+ProtectHome=yes
+#ReadOnlyDirectories=/
+ReadWriteDirectories=-/var/lib/__APP__
+ReadWriteDirectories=-/var/log/__APP__
+ReadWriteDirectories=-__FINALPATH__
 
-# Denying access to capabilities that should not be relevant for webapps
-# Doc: https://man7.org/linux/man-pages/man7/capabilities.7.html
-CapabilityBoundingSet=~CAP_RAWIO CAP_MKNOD
-CapabilityBoundingSet=~CAP_AUDIT_CONTROL CAP_AUDIT_READ CAP_AUDIT_WRITE
-CapabilityBoundingSet=~CAP_SYS_BOOT CAP_SYS_TIME CAP_SYS_MODULE CAP_SYS_PACCT
-CapabilityBoundingSet=~CAP_LEASE CAP_LINUX_IMMUTABLE CAP_IPC_LOCK
-CapabilityBoundingSet=~CAP_BLOCK_SUSPEND CAP_WAKE_ALARM
-CapabilityBoundingSet=~CAP_SYS_TTY_CONFIG
-CapabilityBoundingSet=~CAP_MAC_ADMIN CAP_MAC_OVERRIDE
-CapabilityBoundingSet=~CAP_NET_ADMIN CAP_NET_BROADCAST CAP_NET_RAW
-CapabilityBoundingSet=~CAP_SYS_ADMIN CAP_SYS_PTRACE CAP_SYSLOG 
+NoNewPrivileges=true
+CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_SYS_RESOURCE
+MemoryDenyWriteExecute=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictRealtime=true
+RestrictNamespaces=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+
 
 [Install]
 WantedBy=multi-user.target

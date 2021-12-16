@@ -1,6 +1,6 @@
 [Unit]
 Description=Scrumblr: software to take note.
-After=network.target
+Requires=redis-__APP__.service
 
 [Service]
 Type=simple
@@ -9,7 +9,7 @@ Group=__APP__
 WorkingDirectory=__FINALPATH__
 Environment="PATH=_PATH__"
 Environment="NODE_ENV=production"
-ExecStart=__YNH_NODE__ server.js --port=__PORT__ --baseurl=__PATH__ --redis localhot:__REDIS_PORT__
+ExecStart=__YNH_NODE__ server.js --port=__PORT__ --baseurl=__PATH__ --redis localhost:__REDIS_PORT__
 Restart=always
 
 # Sandboxing options to harden security

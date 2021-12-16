@@ -54,9 +54,9 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
 
-if [ $(ynh_compare_current_package_version --comparison lt --version "0.2.0~ynh2") ] 
+if [ $(ynh_compare_current_package_version --comparison gt --version "0.2.0~ynh1") ] 
 then
-    ynh_systemd_action --service_name=redis-$app --action="stop" --log_path="/var/log/$app/redis-$app.log"ls
+    ynh_systemd_action --service_name=redis-$app --action="stop" --log_path="/var/log/$app/redis-$app.log"
 fi
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
@@ -97,10 +97,6 @@ then
 	ynh_setup_source --dest_dir="$final_path"
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
-
 if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	pushd $final_path
@@ -113,6 +109,8 @@ fi
 # MIGRATE DATABASE
 #=================================================
 ynh_script_progression --message="migrating database... $(ynh_package_version --package=scrumblr)" --weight=1
+
+echo "$(ynh_package_version --package=srumblr)"
 
 
 
@@ -138,6 +136,11 @@ ynh_add_config --template="redis.conf" --destination="$final_path/redis.conf"
 
 redis_service="redis-$app$"
 ynh_add_systemd_config --service $redis_service --template scrumblr_redis
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:redis "$final_path"
+
 
 #=================================================
 # NGINX CONFIGURATION
