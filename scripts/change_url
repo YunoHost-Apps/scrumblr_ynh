@@ -105,9 +105,11 @@ fi
 #=================================================
 # CHANGE SYSTEMD SERVICE
 #=================================================
+ynh_script_progression --message="Updating systemd configuration..." --weight=1
+
 if [ $change_path -eq 1 ]
 then
-    ynh_replace_string --match-string=$old_path --replace-string=$new_path --target-file="/etc/systemd/system/$app.service"
+    ynh_replace_string --match_string=$old_path --replace_string=$new_path --target_file="/etc/systemd/system/$app.service"
 fi
 
 #=================================================
