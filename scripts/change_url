@@ -110,7 +110,7 @@ ynh_script_progression --message="Updating systemd configuration..." --weight=1
 if [ $change_path -eq 1 ]
 then
     ynh_replace_string --match_string=$old_path --replace_string=$new_path --target_file="/etc/systemd/system/$app.service"
-    systemctl deamon-reload
+    systemctl daemon-reload
 fi
 
 #=================================================
