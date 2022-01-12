@@ -185,6 +185,9 @@ ynh_script_progression --message="Upgrading logrotate configuration..." --weight
 # Use logrotate to manage app-specific logfile(s)
 ynh_use_logrotate --non-append
 
+#fix log directory owner
+chown -R $app:$app /var/log/$app
+
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
