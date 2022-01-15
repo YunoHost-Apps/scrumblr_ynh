@@ -17,7 +17,7 @@ old_domain=$YNH_APP_OLD_DOMAIN
 old_path=$YNH_APP_OLD_PATH
 
 new_domain=$YNH_APP_NEW_DOMAIN
-new_path="/"
+new_path=$YNH_APP_NEW_PATH
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -101,6 +101,18 @@ then
 	ynh_store_file_checksum --file="/etc/nginx/conf.d/$new_domain.d/$app.conf"
 fi
 
+
+#=================================================
+# CHANGE SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Updating systemd configuration..." --weight=1
+
+if [ $change_path -eq 1 ]
+then
+    ynh_replace_string --match_string="--baseurl=$old_path" --replace_string="--baseurl=$new_path" --target_file="/etc/systemd/system/$app.service"
+    systemctl daemon-reload
+fi
+
 #=================================================
 # GENERIC FINALISATION
 #=================================================
@@ -108,7 +120,7 @@ fi
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=5
 
-ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at port"
+ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at"
 
 #=================================================
 # RELOAD NGINX
