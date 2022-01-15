@@ -30,13 +30,20 @@ app=$YNH_APP_INSTANCE_NAME
 
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 domain=$(ynh_app_setting_get --app=$app --key=domain)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+redis_port=$(ynh_app_setting_get --app=$app --key=redis_port)
 codename=$(ynh_app_setting_get $app codename)
 
 #=================================================
 # DECLARE DATA AND CONF FILES TO BACKUP
 #=================================================
 ynh_print_info --message="Declaring files to be backed up..."
+
+
+#=================================================
+# EXPORT DATABASE
+#=================================================
+
+redis-cli --rdb "$final_path/redis-$app.rdb" -p $redis_port
 
 #=================================================
 # BACKUP THE APP MAIN DIR
@@ -63,6 +70,7 @@ ynh_backup --src_path="/etc/logrotate.d/$app"
 #=================================================
 
 ynh_backup --src_path="/etc/systemd/system/$app.service"
+ynh_backup --src_path="/etc/systemd/system/redis-$app.service"
 
 #=================================================
 # END OF SCRIPT

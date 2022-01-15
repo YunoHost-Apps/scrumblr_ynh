@@ -24,7 +24,7 @@ ynh_abort_if_errors
 #=================================================
 
 domain=$YNH_APP_ARG_DOMAIN
-path_url="/"
+path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
 
 app=$YNH_APP_INSTANCE_NAME
@@ -66,6 +66,8 @@ ynh_script_progression --message="Installing dependencies..." --weight=5
 
 ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
 
+
+
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
@@ -83,10 +85,25 @@ ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+#==================================================
+# CONFIGURE REDIS SERVICE
+#==================================================
 
+ynh_install_app_dependencies redis-server redis-tools
+
+# Find an available port for redis
+redis_port=$(ynh_find_port --port=8081)
+ynh_app_setting_set --app=$app --key=redis_port --value=$redis_port
+
+ynh_add_config --template="redis.conf" --destination="$final_path/redis.conf"
+
+redis_service="redis-$app"
+ynh_add_systemd_config --service $redis_service --template scrumblr_redis.service
+
+
+chmod 770 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:$app "$final_path"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -105,12 +122,13 @@ ynh_script_progression --message="Configuring log rotation..." --weight=1
 # Use logrotate to manage application logfile(s)
 ynh_use_logrotate
 
+chown -R $app:$app "/var/log/$app/"
+
 #=================================================
 # SETUP SYSTEMD
 #=================================================
 ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
-ynh_replace_string --match_string="__ENV_PATH__" --replace_string="$PATH" --target_file="../conf/systemd.service"
 ynh_add_systemd_config
 
 #=================================================
@@ -135,7 +153,7 @@ yunohost service add $app --description="Software for notes" --log="/var/log/$ap
 ynh_script_progression --message="Starting a systemd service..." --weight=2
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at port"
+ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at "
 
 #=================================================
 # Set Public or private

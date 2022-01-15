@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/aliasaria/scrumblr/archive/cb1475d4f40ea422c71a9596a7ae97b0cbcbb69a.tar.gz
-SOURCE_SUM=6220540442d7327c518a948cbfb13f7f9065d24f6d4ce5c57c2b0b8e61b76714
+SOURCE_URL=https://framagit.org/colibris/framemo/-/archive/d14b3167dfe413ca7db78283b70334100e82076f/framemo-d14b3167dfe413ca7db78283b70334100e82076f.tar.gz
+SOURCE_SUM=f42433ee1e513a2881d00573d0ee5d9595bcee868a8ecbaf9b219d3811aa6943
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
