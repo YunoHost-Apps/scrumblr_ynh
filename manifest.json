@@ -6,7 +6,7 @@
         "en": "Software for post-it notes",
 	   "fr": "Application pour créer des post-it"
     },
-    "version": "0.2.1~ynh1",
+    "version": "0.2.1~ynh2",
     "url": "http://www.scrumblr.ca/",
     "upstream": {
         "license": "AGPL-3.0-only",
