@@ -23,7 +23,7 @@ scrumblr is a web-based simulation of a physical agile kanban board that support
 
 ## Screenshots
 
-![](./doc/screenshots/687474703a2f2f736372756d626c722e63612f696d616765732f73637265656e73686f742e706e67.png)
+![](./doc/screenshots/post-it_demo.png)
 
 ## Documentation and resources
 
