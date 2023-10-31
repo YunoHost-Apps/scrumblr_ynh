@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # Scrumblr for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/scrumblr.svg)](https://dash.yunohost.org/appci/app/scrumblr) ![](https://ci-apps.yunohost.org/ci/badges/scrumblr.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/scrumblr.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/scrumblr.svg)](https://dash.yunohost.org/appci/app/scrumblr) ![Working status](https://ci-apps.yunohost.org/ci/badges/scrumblr.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/scrumblr.maintain.svg)
+
 [![Install Scrumblr with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=scrumblr)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -23,24 +24,25 @@ scrumblr is a web-based simulation of a physical agile kanban board that support
 
 ## Screenshots
 
-![](./doc/screenshots/post-it_demo.png)
+![Screenshot of Scrumblr](./doc/screenshots/post-it_demo.png)
 
 ## Documentation and resources
 
-* Official app website: http://www.scrumblr.ca/
-* Upstream app code repository: https://framagit.org/colibris/framemo
-* YunoHost documentation for this app: https://yunohost.org/app_scrumblr
-* Report a bug: https://github.com/YunoHost-Apps/scrumblr_ynh/issues
+* Official app website: <http://www.scrumblr.ca/>
+* Upstream app code repository: <https://framagit.org/colibris/framemo>
+* YunoHost Store: <https://apps.yunohost.org/app/scrumblr>
+* Report a bug: <https://github.com/YunoHost-Apps/scrumblr_ynh/issues>
 
 ## Developer info
 
 Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/scrumblr_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
-```
+
+``` bash
 sudo yunohost app install https://github.com/YunoHost-Apps/scrumblr_ynh/tree/testing --debug
 or
 sudo yunohost app upgrade scrumblr -u https://github.com/YunoHost-Apps/scrumblr_ynh/tree/testing --debug
 ```
 
-**More info regarding app packaging:** https://yunohost.org/packaging_apps
+**More info regarding app packaging:** <https://yunohost.org/packaging_apps>
