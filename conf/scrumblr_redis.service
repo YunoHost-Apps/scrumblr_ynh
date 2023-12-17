@@ -9,7 +9,7 @@ Group=__APP__
 WorkingDirectory=__INSTALL_DIR__/
 ExecStart=/usr/bin/redis-server __INSTALL_DIR__/redis.conf 
 ExecStop=/bin/kill -s TERM $MAINPID
-PIDFile=__INSTALL_DIR__/redis-server-__REDIS_PORT__.pid
+PIDFile=__INSTALL_DIR__/redis-server-__PORT_REDIS__.pid
 TimeoutStopSec=0
 Restart=always
 
