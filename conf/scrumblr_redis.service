@@ -6,10 +6,10 @@ After=network.target
 Type=simple
 User=__APP__
 Group=__APP__
-WorkingDirectory=__FINALPATH__/
-ExecStart=/usr/bin/redis-server __FINALPATH__/redis.conf 
+WorkingDirectory=__INSTALL_DIR__/
+ExecStart=/usr/bin/redis-server __INSTALL_DIR__/redis.conf 
 ExecStop=/bin/kill -s TERM $MAINPID
-PIDFile=__FINALPATH__/redis-server-__REDIS_PORT__.pid
+PIDFile=__INSTALL_DIR__/redis-server-__REDIS_PORT__.pid
 TimeoutStopSec=0
 Restart=always
 
@@ -21,7 +21,7 @@ ProtectHome=yes
 #ReadOnlyDirectories=/
 ReadWriteDirectories=-/var/lib/__APP__
 ReadWriteDirectories=-/var/log/__APP__
-ReadWriteDirectories=-__FINALPATH__
+ReadWriteDirectories=-__INSTALL_DIR__
 
 NoNewPrivileges=true
 CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_SYS_RESOURCE

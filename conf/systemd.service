@@ -6,7 +6,7 @@ Requires=redis-__APP__.service
 Type=simple
 User=__APP__
 Group=__APP__
-WorkingDirectory=__FINALPATH__
+WorkingDirectory=__INSTALL_DIR__
 Environment="PATH=_PATH__"
 Environment="NODE_ENV=production"
 ExecStart=__YNH_NODE__ server.js --port=__PORT__ --baseurl=__PATH__ --redis localhost:__REDIS_PORT__
