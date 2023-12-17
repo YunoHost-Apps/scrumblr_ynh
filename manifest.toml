@@ -52,7 +52,7 @@ ram.runtime = "50M"
     [resources.install_dir]
 
     [resources.ports]
-    redis.main = 8081
+    redis.default = 8081
 
     [resources.permissions]
     main.url = "/"
