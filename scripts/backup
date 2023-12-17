@@ -19,7 +19,7 @@ ynh_print_info --message="Declaring files to be backed up..."
 # EXPORT DATABASE
 #=================================================
 
-redis-cli --rdb "$install_dir/redis-$app.rdb" -p $redis_port
+redis-cli --rdb "$install_dir/redis-$app.rdb" -p $port_redis
 
 #=================================================
 # BACKUP THE APP MAIN DIR

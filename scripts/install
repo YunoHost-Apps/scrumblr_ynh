@@ -32,7 +32,6 @@ ynh_add_config --template="redis.conf" --destination="$install_dir/redis.conf"
 redis_service="redis-$app"
 ynh_add_systemd_config --service $redis_service --template scrumblr_redis.service
 
-
 chmod 770 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:$app "$install_dir"
