@@ -10,46 +10,10 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
-#=================================================
-#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=1
-
-#REMOVEME? app=$YNH_APP_INSTANCE_NAME
-
-#REMOVEME? domain=$(ynh_app_setting_get --app=$app --key=domain)
-#REMOVEME? path=$(ynh_app_setting_get --app=$app --key=path)
-#REMOVEME? #REMOVEME? install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
-#REMOVEME? port=$(ynh_app_setting_get --app=$app --key=port)
-
-if ynh_compare_current_package_version --comparison gt --version 0.2.0~ynh1
-then
-#REMOVEME?     redis_port=$(ynh_app_setting_get --app=$app --key=redis_port)
-else
-#REMOVEME?     redis_port=$(ynh_find_port --port=8081)
-#REMOVEME?     ynh_app_setting_set --app=$app --key=redis_port --value=$redis_port
-fi
-
-#=================================================
 # CHECK VERSION
 #=================================================
 
 upgrade_type=$(ynh_check_app_version_changed)
-
-#REMOVEME? ynh_install_app_dependencies redis-server redis-tools
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-#REMOVEME? ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=1
-
-# Backup the current version of the app
-#REMOVEME? ynh_backup_before_upgrade
-#REMOVEME? ynh_clean_setup () {
-	# Restore it if the upgrade fails
-#REMOVEME? 	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-#REMOVEME? ynh_abort_if_errors
 
 #=================================================
 # STANDARD UPGRADE STEPS
@@ -62,38 +26,12 @@ ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app
 
 if $(ynh_compare_current_package_version --comparison gt --version "0.2.0~ynh1")
 then
-    # save redis db
     pushd $install_dir
         redis-cli --rdb "/tmp/redis-$app.rdb" -p $redis_port
     popd
     
     ynh_systemd_action --service_name=redis-$app --action="stop" --log_path="/var/log/$app/redis-$app.log"
 fi
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
-
-# If install_dir doesn't exist, create it
-if [ -z "$install_dir" ]; then
-#REMOVEME? 	install_dir=/var/www/$app
-#REMOVEME? 	ynh_app_setting_set --app=$app --key=install_dir --value=$install_dir
-fi
-
-# Cleaning legacy permissions
-#REMOVEME? if ynh_legacy_permissions_exists; then
-#REMOVEME? 	ynh_legacy_permissions_delete_all
-
-	ynh_app_setting_delete --app=$app --key=is_public
-fi
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-#REMOVEME? ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
-
-# Create a dedicated user (if not existing)
-#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -103,7 +41,7 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
     
-#REMOVEME? 	ynh_secure_remove --file="$install_dir"
+	ynh_secure_remove --file="$install_dir"
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$install_dir"
 	
@@ -129,8 +67,6 @@ ynh_script_progression --message="migrating database... $(ynh_package_version --
 
 echo "$(ynh_package_version --package=srumblr)"
 
-
-
 if $(ynh_compare_current_package_version --comparison lt --version "0.2.0~ynh2") 
 then
     pushd $install_dir
@@ -142,7 +78,6 @@ fi
 # REDIS CONFIGURATION
 #=================================================
 
-
 ynh_add_config --template="redis.conf" --destination="$install_dir/redis.conf"
 
 redis_service="redis-$app"
@@ -152,7 +87,6 @@ chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:$app "$install_dir"
 
-
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -161,37 +95,15 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-#=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-#REMOVEME? ynh_script_progression --message="Upgrading dependencies..." --weight=5
-
 ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
 
-#=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
-
 ynh_add_systemd_config
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SETUP LOGROTATE
-#=================================================
-ynh_script_progression --message="Upgrading logrotate configuration..." --weight=1
 
 # Use logrotate to manage app-specific logfile(s)
 ynh_use_logrotate --non-append
 
 #fix log directory owner
 chown -R $app:$app /var/log/$app
-
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 yunohost service add $app --description="Software for notes" --log="/var/log/$app/$app.log"
 
@@ -201,13 +113,6 @@ yunohost service add $app --description="Software for notes" --log="/var/log/$ap
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at"
-
-#=================================================
-# RELOAD NGINX
-#=================================================
-#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..." --weight=1
-
-#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
