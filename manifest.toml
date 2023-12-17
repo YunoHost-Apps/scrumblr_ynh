@@ -16,7 +16,7 @@ demo = "http://scrumblr.ca/"
 code = "https://framagit.org/colibris/framemo"
 
 [integration]
-yunohost = ">> 11.2"
+yunohost = ">= 11.2"
 architectures = "all"
 multi_instance = true
 
