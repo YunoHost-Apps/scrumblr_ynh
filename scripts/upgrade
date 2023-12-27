@@ -27,11 +27,18 @@ ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app
 if $(ynh_compare_current_package_version --comparison gt --version "0.2.0~ynh1")
 then
     pushd $install_dir
-        redis-cli --rdb "/tmp/redis-$app.rdb" -p $redis_port
+        redis-cli --rdb "/tmp/redis-$app.rdb" -p $port_redis
     popd
     
     ynh_systemd_action --service_name=redis-$app --action="stop" --log_path="/var/log/$app/redis-$app.log"
 fi
+
+#=================================================
+# INSTALL NODEJS
+#=================================================
+ynh_script_progression --message="Installing dependencies..." --weight=5
+
+ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -95,8 +102,6 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
-
 ynh_add_systemd_config
 
 # Use logrotate to manage app-specific logfile(s)
@@ -112,7 +117,7 @@ yunohost service add $app --description="Software for notes" --log="/var/log/$ap
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at"
+ynh_systemd_action --service_name=$app --action="start" --log_path="systemd" --line_match="Server running at"
 
 #=================================================
 # END OF SCRIPT

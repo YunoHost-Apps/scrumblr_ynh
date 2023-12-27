@@ -66,7 +66,7 @@ popd
 ynh_script_progression --message="Starting a systemd service..." --weight=2
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="Server running at "
+ynh_systemd_action --service_name=$app --action="start" --log_path="systemd" --line_match="Server running at "
 
 #=================================================
 # END OF SCRIPT
