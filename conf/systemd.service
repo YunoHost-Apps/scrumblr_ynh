@@ -1,5 +1,5 @@
 [Unit]
-Description=Scrumblr: software to take note.
+Description=Scrumblr: collaborative whiteboard
 Requires=redis-__APP__.service
 
 [Service]
@@ -44,4 +44,3 @@ CapabilityBoundingSet=~CAP_SYS_ADMIN CAP_SYS_PTRACE CAP_SYSLOG
 
 [Install]
 WantedBy=multi-user.target
-
