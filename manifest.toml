@@ -1,0 +1,61 @@
+packaging_format = 2
+
+id = "scrumblr"
+name = "Scrumblr"
+description.en = "Software for post-it notes"
+description.fr = "Application pour créer des post-it"
+
+version = "0.2.1~ynh2"
+
+maintainers = ["frju365", "oiseauroch"]
+
+[upstream]
+license = "AGPL-3.0-only"
+website = "http://www.scrumblr.ca/"
+demo = "http://scrumblr.ca/"
+code = "https://framagit.org/colibris/framemo"
+
+[integration]
+yunohost = ">= 11.2"
+architectures = "all"
+multi_instance = true
+
+ldap = false
+
+sso = false
+
+disk = "50M"
+ram.build = "50M"
+ram.runtime = "50M"
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/scrumblr"
+
+    [install.init_main_permission]
+    help.en = "If enabled, Scrumblr will be accessible by people who do not have an account. This can be changed later via the webadmin."
+    help.fr = "Si cette case est cochée, Scrumblr sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
+    type = "group"
+    default = "visitors"
+
+[resources]
+        [resources.sources.main]
+        url = "https://framagit.org/colibris/framemo/-/archive/d14b3167dfe413ca7db78283b70334100e82076f/framemo-d14b3167dfe413ca7db78283b70334100e82076f.tar.gz"
+        sha256 = "f42433ee1e513a2881d00573d0ee5d9595bcee868a8ecbaf9b219d3811aa6943"
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.ports]
+    redis.default = 8081
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.apt]
+    packages = "redis-server, redis-tools"
