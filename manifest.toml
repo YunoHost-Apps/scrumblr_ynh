@@ -46,6 +46,7 @@ ram.runtime = "50M"
         [resources.sources.main]
         url = "https://framagit.org/colibris/framemo/-/archive/d14b3167dfe413ca7db78283b70334100e82076f/framemo-d14b3167dfe413ca7db78283b70334100e82076f.tar.gz"
         sha256 = "f42433ee1e513a2881d00573d0ee5d9595bcee868a8ecbaf9b219d3811aa6943"
+        autoupdate.strategy = "latest_gitlab_commit"
 
     [resources.system_user]
 
