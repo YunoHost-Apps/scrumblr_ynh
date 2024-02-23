@@ -5,7 +5,7 @@ name = "Scrumblr"
 description.en = "Software for post-it notes"
 description.fr = "Application pour créer des post-it"
 
-version = "0.2.1~ynh2"
+version = "2021.12.10~ynh1"
 
 maintainers = ["frju365", "oiseauroch"]
 
@@ -44,8 +44,8 @@ ram.runtime = "50M"
 
 [resources]
         [resources.sources.main]
-        url = "https://framagit.org/colibris/framemo/-/archive/d14b3167dfe413ca7db78283b70334100e82076f/framemo-d14b3167dfe413ca7db78283b70334100e82076f.tar.gz"
-        sha256 = "f42433ee1e513a2881d00573d0ee5d9595bcee868a8ecbaf9b219d3811aa6943"
+        url = "https://framagit.org/colibris/framemo/-/archive/d14b3167dfe413ca7db78283b70334100e82076f/framemo-d14b3167dfe413ca7db78283b70334100e82076f.tar.bz2"
+        sha256 = "343ccfbd920c8200d3b8d9f0e79bdb2d27f71df01c044873d08da323fc842440"
         autoupdate.strategy = "latest_gitlab_commit"
 
     [resources.system_user]
