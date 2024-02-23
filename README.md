@@ -18,7 +18,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 scrumblr is a web-based simulation of a physical agile kanban board that supports real-time collaboration. it is built using node.js, websockets (using socket.io), CSS3, and jquery. 
 
-**Shipped version:** 0.2.1~ynh2
+**Shipped version:** 2021.12.10~ynh1
 
 **Demo:** http://scrumblr.ca/
 
