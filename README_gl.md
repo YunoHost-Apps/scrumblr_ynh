@@ -26,6 +26,10 @@ scrumblr is a web-based simulation of a physical agile kanban board that support
 
 ![Captura de pantalla de Scrumblr](./doc/screenshots/post-it_demo.png)
 
+## :red_circle: Debes considerar
+
+- **Upstream not maintained**: This software is not maintained anymore. Expect it to break down over time, be exposed to unfixed security breaches, etc.
+
 ## Documentación e recursos
 
 - Web oficial da app: <http://www.scrumblr.ca/>
