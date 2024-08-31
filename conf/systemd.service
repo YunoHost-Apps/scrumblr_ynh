@@ -9,7 +9,7 @@ Group=__APP__
 WorkingDirectory=__INSTALL_DIR__
 Environment="PATH=_PATH__"
 Environment="NODE_ENV=production"
-ExecStart=__YNH_NODE__ server.js --port=__PORT__ --baseurl=__PATH__ --redis localhost:__PORT_REDIS__
+ExecStart=__NODEJS_DIR__/node server.js --port=__PORT__ --baseurl=__PATH__ --redis localhost:__PORT_REDIS__
 Restart=always
 
 # Sandboxing options to harden security
