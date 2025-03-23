@@ -5,7 +5,9 @@ It shall NOT be edited by hand.
 
 # Scrumblr for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/scrumblr.svg)](https://dash.yunohost.org/appci/app/scrumblr) ![Working status](https://ci-apps.yunohost.org/ci/badges/scrumblr.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/scrumblr.maintain.svg)
+[![Integration level](https://apps.yunohost.org/badge/integration/scrumblr)](https://ci-apps.yunohost.org/ci/apps/scrumblr/)
+![Working status](https://apps.yunohost.org/badge/state/scrumblr)
+![Maintenance status](https://apps.yunohost.org/badge/maintained/scrumblr)
 
 [![Install Scrumblr with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=scrumblr)
 
@@ -18,7 +20,8 @@ It shall NOT be edited by hand.
 
 scrumblr is a web-based simulation of a physical agile kanban board that supports real-time collaboration. it is built using node.js, websockets (using socket.io), CSS3, and jquery. 
 
-**Shipped version:** 2021.12.10~ynh1
+
+**Shipped version:** 2021.12.10~ynh2
 
 **Demo:** <http://scrumblr.ca/>
 

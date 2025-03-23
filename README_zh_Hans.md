@@ -5,7 +5,9 @@
 
 # YunoHost 上的 Scrumblr
 
-[![集成程度](https://dash.yunohost.org/integration/scrumblr.svg)](https://dash.yunohost.org/appci/app/scrumblr) ![工作状态](https://ci-apps.yunohost.org/ci/badges/scrumblr.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/scrumblr.maintain.svg)
+[![集成程度](https://apps.yunohost.org/badge/integration/scrumblr)](https://ci-apps.yunohost.org/ci/apps/scrumblr/)
+![工作状态](https://apps.yunohost.org/badge/state/scrumblr)
+![维护状态](https://apps.yunohost.org/badge/maintained/scrumblr)
 
 [![使用 YunoHost 安装 Scrumblr](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=scrumblr)
 
@@ -18,7 +20,8 @@
 
 scrumblr is a web-based simulation of a physical agile kanban board that supports real-time collaboration. it is built using node.js, websockets (using socket.io), CSS3, and jquery. 
 
-**分发版本：** 2021.12.10~ynh1
+
+**分发版本：** 2021.12.10~ynh2
 
 **演示：** <http://scrumblr.ca/>
 
