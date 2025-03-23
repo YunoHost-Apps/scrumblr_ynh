@@ -5,7 +5,9 @@ EZ editatu eskuz.
 
 # Scrumblr YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/scrumblr.svg)](https://dash.yunohost.org/appci/app/scrumblr) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/scrumblr.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/scrumblr.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/scrumblr)](https://ci-apps.yunohost.org/ci/apps/scrumblr/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/scrumblr)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/scrumblr)
 
 [![Instalatu Scrumblr YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=scrumblr)
 
@@ -18,7 +20,8 @@ EZ editatu eskuz.
 
 scrumblr is a web-based simulation of a physical agile kanban board that supports real-time collaboration. it is built using node.js, websockets (using socket.io), CSS3, and jquery. 
 
-**Paketatutako bertsioa:** 2021.12.10~ynh1
+
+**Paketatutako bertsioa:** 2021.12.10~ynh2
 
 **Demoa:** <http://scrumblr.ca/>
 

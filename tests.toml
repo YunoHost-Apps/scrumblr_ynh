@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/tests.v1.schema.json
+
 test_format = 1.0
 
 [default]
@@ -5,3 +7,13 @@ test_format = 1.0
     # ------------
     # Tests to run
     # ------------
+
+    # -------------------------------
+    # Default args to use for install
+    # -------------------------------
+
+    # -------------------------------
+    # Commits to test upgrade from
+    # -------------------------------
+
+    test_upgrade_from.9d0f9d84583bf98b210458590851a2aa6ff843fa.name = "Upgrade from 2021.12.10~ynh1"
